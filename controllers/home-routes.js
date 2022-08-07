@@ -16,8 +16,8 @@ router.get('/', (req,res) =>{
   Post.findAll({
       attributes:[
           'id',
-          'post_url',
           'title',
+          'body',
           'created_at'
       ],
       includes:[
@@ -56,8 +56,8 @@ router.get('/post/:id', (req,res) =>{
       },
       attributes:[
           'id',
-          'post_url',
           'title',
+          'body',
           'created_at'
       ],
       include:[

@@ -4,14 +4,15 @@ const {Post, User, Comment} = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, (req,res) =>{
+    console.log(JSON.stringify(req.session.user_id));
     Post.findAll({
         where:{
             user_id:req.session.user_id
         },
         attributes:[
             'id',
-            'post_url',
             'title',
+            'body',
             'created_at'
         ],
         include:[
@@ -30,8 +31,13 @@ router.get('/', withAuth, (req,res) =>{
         ]
     })
     .then(dbPostData =>{
-        const posts = dbPostData.map(post =>post.get({plain:true}));
-        res.render('dashboard', {loggedIn:true});
+        const posts = dbPostData.map(post => post.get({plain: true}));
+
+        console.log(posts);
+        res.render('dashboard', {
+            posts,
+            loggedIn:req.session.loggedIn
+        });
     })
     .catch(err =>{
         console.log(err);
@@ -43,8 +49,8 @@ router.get('/edit/:id', withAuth, (req,res) =>{
     Post.findByPk(req.params.id, {
         attributes:[
             'id',
-            'post_url',
             'title',
+            'body',
             'created_at'
         ],
         include:[
