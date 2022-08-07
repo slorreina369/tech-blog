@@ -1,3 +1,6 @@
+const newPostForm = document.querySelector('.new-post-form');
+const newPostBtn = document.querySelector('.new-post-btn');
+
 async function newFormHandler(event){
     event.preventDefault();
 
@@ -20,6 +23,13 @@ async function newFormHandler(event){
     } else {
         alert(response.statusText);
     }
-}
+};
 
-document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);
+function showForm(event){
+    newPostForm.hidden = false;
+    newPostBtn.hidden = true;
+
+};
+
+newPostBtn.addEventListener('click', showForm)
+newPostForm.addEventListener('submit', newFormHandler);
