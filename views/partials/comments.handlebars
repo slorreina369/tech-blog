@@ -1,6 +1,6 @@
 <div class="comments">
   {{#each this}}
-  <section class="comment">
+  <section class="comment" data-id="{{id}}">
     <div class="meta">
       {{user.username}} on {{format_date created_at}}
     </div>
@@ -10,6 +10,12 @@
     <div>
       <button type="submit" class="edit-button">Edit</button>
     </div>
+    {{>edit-comment}}
   </section>
+
   {{/each}}
 </div>
+
+<script src="/javascript/edit-comment.js"></script>
+<script src="/javascript/delete-post.js"></script>
+<script src="/javascript/comment.js"></script>

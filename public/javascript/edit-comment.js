@@ -1,17 +1,15 @@
-const editPostForm = document.querySelector('.edit-post-form');
+async function editCommentFormHandler(event){
+  event.preventDefault();
+  const form = event.target;
 
-async function editCommentForm(event){
-    event.preventDefault();
 
-  const body = document.querySelector('textarea[name="comment-body"]').value.trim();
+  const comment_text = form.querySelector('textarea[name="comment-body"]').value.trim();
 
-  const id = window.location.toString().split('/')[
-    window.location.toString().split('/').length - 1
-  ];
-  const response = await fetch(`/api/posts/${id}`, {
+  const id = form.closest('.comment').dataset.id;
+  const response = await fetch(`/api/comments/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
-      body
+      comment_text
     }),
     headers: {
       'Content-Type': 'application/json'
@@ -19,10 +17,26 @@ async function editCommentForm(event){
   });
 
   if (response.ok) {
-    document.location.replace(`/dashboard/${id}`);
+    document.location.reload();
   } else {
     alert(response.statusText);
   }
 }
 
-editPostForm.addEventListener('submit', editCommentForm);
+function showEditCommentForm(event){
+  const comment = event.target.closest('.comment');
+  const commentText = comment.querySelector('.text').innerText;
+  const form = comment.querySelector('.comment-form');
+
+  form.querySelector('textarea[name="comment-body"]').value = commentText;
+
+  form.hidden = false;
+}
+
+document.querySelectorAll('.comment-form').forEach(editCommentForm =>{
+  editCommentForm.addEventListener('submit', editCommentFormHandler);
+});
+
+document.querySelectorAll('.edit-button').forEach(editCommmentButton =>{
+  editCommmentButton.addEventListener('click', showEditCommentForm);
+});
