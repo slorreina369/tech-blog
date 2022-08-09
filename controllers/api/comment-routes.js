@@ -20,6 +20,9 @@ router.get('/', (req,res) =>{
 
 router.get('/:id', (req,res) =>{
   Comment.findOne({
+    where:{
+        id:req.params.id
+    },
     order: [['created_at', 'DESC']],
     attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
     include: {
@@ -71,7 +74,7 @@ router.put('/:id', (req,res) =>{
   });
 });
 
-router.delete(':id', (req,res) =>{
+router.delete('/:id', (req,res) =>{
   Comment.destroy({
       where:{
           id:req.params.id
