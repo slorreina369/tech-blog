@@ -1,6 +1,4 @@
 <section>
-    <h2>Create New Post</h2>
-
     <form hidden class="new-post-form">
         <div>
             <label for="post-title">Title</label>
@@ -21,7 +19,6 @@
         <li>
             {{> post-info post}}
             <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
-            <button type="button" data-id={{post.id}} class="delete-post-btn">Delete</button>
         </li>
         {{/each}}
     </ol>
@@ -32,5 +29,4 @@
     <button type="button" class="new-post-btn">+ New Post</button>
 </section>
 
-<script src="/javascript/delete-post.js"></script>
 <script src="/javascript/add-post.js"></script>
