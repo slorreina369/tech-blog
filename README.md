@@ -31,7 +31,7 @@ Run server with `npm start`
 
 ## Contributing 
 
-Me!(and bootcamp code)
+Me!
 
 ## Questions
 
